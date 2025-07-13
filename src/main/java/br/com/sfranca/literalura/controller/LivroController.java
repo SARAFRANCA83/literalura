@@ -1,5 +1,6 @@
-package br.com.sfranca.literalura.dto;
+package br.com.sfranca.literalura.controller;
 
+import br.com.sfranca.literalura.dto.GutendexBookDTO;
 import br.com.sfranca.literalura.service.LivroService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
