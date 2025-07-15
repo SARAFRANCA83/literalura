@@ -12,10 +12,14 @@ import java.util.Set;
 public class LiteraluraMenu implements CommandLineRunner {
 
     private final LivroService livroService;
+    private final EstatisticaService estatisticaService;
 
-    public LiteraluraMenu(LivroService livroService) {
+    // Ajuste o construtor para receber o EstatisticaService também:
+    public LiteraluraMenu(LivroService livroService, EstatisticaService estatisticaService) {
         this.livroService = livroService;
+        this.estatisticaService = estatisticaService;
     }
+
 
     @Override
     public void run(String... args) {
@@ -30,6 +34,7 @@ public class LiteraluraMenu implements CommandLineRunner {
             System.out.println("4 - Listar autores registrados");
             System.out.println("5 - Listar autores vivos em um determinado ano");
             System.out.println("6 - Listar livros em um determinado idioma");
+            System.out.println("7 - Contar livros por idioma");
             System.out.println("0 - Sair");
             System.out.print("Escolha uma opção: ");
 
@@ -43,6 +48,7 @@ public class LiteraluraMenu implements CommandLineRunner {
                     case 4 -> listarAutoresRegistrados();
                     case 5 -> listarAutoresVivosNoAno(scanner);
                     case 6 -> listarLivrosPorIdioma(scanner);
+                    case 7 -> contarLivrosPorIdioma(scanner);
                     case 0 -> System.out.println("Saindo do programa...");
                     default -> System.out.println("Opção inválida! Tente novamente.");
                 }
@@ -55,6 +61,15 @@ public class LiteraluraMenu implements CommandLineRunner {
         }
 
         scanner.close();
+    }
+
+    private void contarLivrosPorIdioma(Scanner scanner) {
+        System.out.print("Digite o código do idioma (ex: en, pt, fr): ");
+        String idioma = scanner.nextLine().trim();
+
+        long quantidade = estatisticaService.contarLivrosPorIdioma(idioma);
+
+        System.out.println("Quantidade de livros no idioma '" + idioma + "': " + quantidade);
     }
 
     private void buscarLivroPorTitulo(Scanner scanner) {
